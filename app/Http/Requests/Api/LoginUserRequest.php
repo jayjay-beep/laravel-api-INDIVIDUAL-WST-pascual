@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginUserRequest extends FormRequest
@@ -12,7 +12,7 @@ class LoginUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,8 @@ class LoginUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+             'email'    => ['required', 'email', ],
+             'password' => ['required', 'string',],
         ];
     }
 }

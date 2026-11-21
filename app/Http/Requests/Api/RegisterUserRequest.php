@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Api;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterUserRequest extends FormRequest
@@ -12,7 +12,7 @@ class RegisterUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,13 @@ class RegisterUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
-        ];
+            return [
+        'name'     => ['required', 'string', 'max:255'],
+        // unique:users,email rejects an email that is already registered
+        'email'    => ['required', 'email', 'max:255', 'unique:users,email'],
+        // confirmed requires a matching password_confirmation field
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ];
+
     }
 }
